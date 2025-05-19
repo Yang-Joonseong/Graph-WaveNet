@@ -158,7 +158,7 @@ class gwnet(nn.Module):
         if supports is not None:
             self.supports_len += len(supports)
 
-        # 자가적응 인접행렬 설정
+        # Self Adpative Adj Matrix
         if gcn_bool and addaptadj:
             if aptinit is None:
                 # 사전 정의된 초기값이 없는 경우 랜덤 초기화
