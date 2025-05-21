@@ -336,21 +336,20 @@ class gwnet(nn.Module):
                 x = self.residual_convs[i](x)
 
             # Residual connection
-            # 시간 차원을 맞추기 위해 residual의 마지막 부분만 사용
-            # 마지막 레이어에서는 T_final=3 정도로 축소됨
+
             x = x + residual[:, :, :, -x.size(3):]
 
             # Batch normalization
             x = self.bn[i](x)
 
         # 최종 출력 계산
-        # 차원: [B, 256, N=207, T_final=3]
+        # 차원: [B, 256, N=207, T_final=1]
         x = F.relu(skip)              # Skip connections의 합
         
-        # 차원 변화: [B, 256, N=207, T_final=3] -> [B, 512, N=207, T_final=3]
+        # 차원 변화: [B, 256, N=207, T_final=1] -> [B, 512, N=207, T_final=1]
         x = F.relu(self.end_conv_1(x)) # 첫 번째 출력 레이어
         
-        # 차원 변화: [B, 512, N=207, T_final=3] -> [B, out_dim=12, N=207, T_final=3]
+        # 차원 변화: [B, 512, N=207, T_final=1] -> [B, out_dim=12, N=207, T_final=1]
         x = self.end_conv_2(x)         # 최종 출력 레이어
 
         return x
