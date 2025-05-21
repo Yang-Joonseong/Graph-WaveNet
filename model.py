@@ -352,7 +352,5 @@ class gwnet(nn.Module):
         
         # 차원 변화: [B, 512, N=207, T_final=3] -> [B, out_dim=12, N=207, T_final=3]
         x = self.end_conv_2(x)         # 최종 출력 레이어
-        
-        # 실제 반환 전에 차원 재배열로 [B, N=207, out_dim=12] 형태로 변환하는 경우가 많음
-        # (이 코드에는 없지만 사용 단계에서 수행됨)
+
         return x
